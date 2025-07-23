@@ -39,35 +39,82 @@ const MoviePage = () => {
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-[#181818] via-transparent to-transparent">
-          <div className="relative z-10 p-8 gap-8 flex items-end">
-            <img
-              src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-              alt="image of your movie"
-              className="rounded-lg w-48 hidden md:block shadow-lg"
-            />
-            <div>
-              <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
-              <div className="flex items-center gap-4 mb-2">
-                <span>⭐ {movie.vote_average?.toFixed(1)}</span>
-                <span>{movie.release_date}</span>
-                <span>{movie.runtime} min</span>
-              </div>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {movie.genres.map((genre) => (
-                  <span
-                    key={genre.id}
-                    className="bg-gray-800 text-white px-3 py-1 rounded-full text-sm"
-                  >
-                    {genre.name}
-                  </span>
-                ))}
-              </div>
-              <p className="max-w-2xl text-gray-200">{movie.overview}</p>
-              <button className="flex items-center justify-center bg-[#e50914] hover:bg-red-400 text-white px-4 py-3 rounded-full cursor-pointer tesxt-sm md:text-base mt-2 md:mt-4">
-                <Play className="mr-2 w-4 h-5 md:w-5 md:h-5" /> Watch Now
-              </button>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#181818] via-transparent to-transparent"></div>
+        <div className="relative z-10 p-8 gap-8 flex items-end">
+          <img
+            src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+            alt="image of your movie"
+            className="rounded-lg w-48 hidden md:block shadow-lg"
+          />
+          <div>
+            <h1 className="text-4xl font-bold mb-2">{movie.title}</h1>
+            <div className="flex items-center gap-4 mb-2">
+              <span>⭐ {movie.vote_average?.toFixed(1)}</span>
+              <span>{movie.release_date}</span>
+              <span>{movie.runtime} min</span>
             </div>
+            <div className="flex flex-wrap gap-2 mb-4">
+              {movie.genres.map((genre) => (
+                <span
+                  key={genre.id}
+                  className="bg-gray-800 text-white px-3 py-1 rounded-full text-sm"
+                >
+                  {genre.name}
+                </span>
+              ))}
+            </div>
+            <p className="max-w-2xl text-gray-200">{movie.overview}</p>
+            <button className="flex items-center justify-center bg-[#e50914] hover:bg-red-400 text-white px-4 py-3 rounded-full cursor-pointer tesxt-sm md:text-base mt-2 md:mt-4">
+              <Play className="mr-2 w-4 h-5 md:w-5 md:h-5" /> Watch Now
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="p-8">
+        <h2 className="text-2xl font-semibold mb-4">Details</h2>
+        <div className="bg-[#232323] rounded-lg p-6 shadow-lg flex flex-col md:flex-row gap-8">
+          <div className="flex-1">
+            <ul className="text-gray-300 space-y-3">
+              <li>
+                <span className="font-semibold text-white">Status: </span>
+                <span className="ml-2">{movie.status}</span>
+              </li>
+              <li>
+                <span className="font-semibold text-white">Release Date: </span>
+                <span className="ml-2">{movie.release_date}</span>
+              </li>
+              <li>
+                <span className="font-semibold text-white">
+                  Original Language:{" "}
+                </span>
+                <span className="ml-2">
+                  {movie.original_language?.toUpperCase()}
+                </span>
+              </li>
+              <li>
+                <span className="font-semibold text-white">Budget: </span>
+                <span className="ml-2">
+                  {movie.budget ? `$${movie.budget.toLocaleString()}` : "N/A"}
+                </span>
+              </li>
+              <li>
+                <span className="font-semibold text-white">Revenue: </span>
+                <span className="ml-2">
+                  {movie.revenue ? `$${movie.revenue.toLocaleString()}` : "N/A"}
+                </span>
+              </li>
+              <li>
+                <span className="font-semibold text-white">
+                  Production Companies:
+                </span>
+                <span className="ml-2">
+                  {movie.production_companies &&
+                  movie.production_companies.length > 0
+                    ? movie.production_companies.map((c) => c.name).join(", ")
+                    : "N/A"}
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

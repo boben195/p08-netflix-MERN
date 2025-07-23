@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import HeroBg from "../../assets/herobg2.jpg";
 import { Bookmark, Play } from "lucide-react";
+import { Link } from "react-router";
 
 const Hero = () => {
   const [movie, setMovie] = useState(null);
@@ -45,9 +46,11 @@ const Hero = () => {
         <button className="flex items-center justify-center bg-white hover:bg-gray-200 text-[#e50914] px-4 py-3 rounded-full cursor-pointer tesxt-sm md:text-base">
           <Bookmark className="mr-2 w-4 h-5 md:w-5 md:h-5" /> Save for later
         </button>
-        <button className="flex items-center justify-center bg-[#e50914] hover:bg-red-400 text-white px-4 py-3 rounded-full cursor-pointer tesxt-sm md:text-base">
-          <Play className="mr-2 w-4 h-5 md:w-5 md:h-5" /> Watch Now
-        </button>
+        <Link to={`/movie/${movie.id}`}>
+          <button className="flex items-center justify-center bg-[#e50914] hover:bg-red-400 text-white px-4 py-3 rounded-full cursor-pointer tesxt-sm md:text-base">
+            <Play className="mr-2 w-4 h-5 md:w-5 md:h-5" /> Watch Now
+          </button>
+        </Link>
       </div>
     </div>
   );
