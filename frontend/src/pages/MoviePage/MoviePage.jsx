@@ -114,7 +114,36 @@ const MoviePage = () => {
                     : "N/A"}
                 </span>
               </li>
+              <li>
+                <span className="font-semibold text-white">Countries:</span>
+                <span className="ml-2">
+                  {movie.production_countries &&
+                  movie.production_countries.length > 0
+                    ? movie.production_countries.map((c) => c.name).join(", ")
+                    : "N/A"}
+                </span>
+              </li>
+              <li>
+                <span className="font-semibold text-white">
+                  Spoken Languages:
+                </span>
+                <span className="ml-2">
+                  {movie.spoken_languages && movie.spoken_languages.length > 0
+                    ? movie.spoken_languages
+                        .map((l) => l.english_name)
+                        .join(", ")
+                    : "N/A"}
+                </span>
+              </li>
             </ul>
+          </div>
+          <div className="flex-1">
+            <h3 className="font-semibold text-white mb-2">TagLine</h3>
+            <p className="italic text-gray-400 mb-6">
+              {movie.tagline || "No tagline available"}
+            </p>
+            <h3 className="font-semibold text-white mb-2">Overview</h3>
+            <p className="text-gray-200">{movie.overview}</p>
           </div>
         </div>
       </div>
