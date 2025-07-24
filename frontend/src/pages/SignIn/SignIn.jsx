@@ -16,12 +16,12 @@ const SignIn = () => {
         <form className="flex flex-col space-y-4">
           <input
             type="text"
-            className="w-full h-[50px] bg-[#333] text-white roundded"
+            className="w-full h-[50px] bg-[#333] text-white roundded px-5 text-base"
             placeholder="Username"
           />
           <input
             type="password"
-            className="w-full h-[50px] bg-[#333] text-white roundded"
+            className="w-full h-[50px] bg-[#333] text-white roundded px-5 text-base"
             placeholder="Password"
           />
           <button
