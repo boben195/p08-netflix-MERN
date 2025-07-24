@@ -1,8 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-no-repeat px-4 md:px-8 py-5"
@@ -16,16 +21,22 @@ const SignUp = () => {
         <form className="flex flex-col space-y-4">
           <input
             type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             className="w-full h-[50px] bg-[#333] text-white roundded px-5 text-base"
             placeholder="Entr your Username"
           />
           <input
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full h-[50px] bg-[#333] text-white roundded px-5 text-base"
             placeholder="Enter Email Address"
           />
           <input
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="w-full h-[50px] bg-[#333] text-white roundded px-5 text-base"
             placeholder="Enter Your Password"
           />
