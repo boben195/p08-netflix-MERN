@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router";
 import Navbar from "./components/Navbar/Navbar";
 import HomePage from "./pages/HomePage/HomePage";
 import MoviePage from "./pages/Moviepage/MoviePage";
+import SignIn from "./pages/SignIn/SignIn";
+import SignUp from "./pages/SignUp/SignUp";
 
 const App = () => {
   return (
@@ -11,6 +13,8 @@ const App = () => {
       <Routes>
         <Route path={"/"} element={<HomePage />} />
         <Route path={"/movie/:id"} element={<MoviePage />} />
+        <Route path={"/signin"} element={<SignIn />} />
+        <Route path={"/signup"} element={<SignUp />} />
       </Routes>
     </div>
   );
