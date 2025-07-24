@@ -6,6 +6,7 @@ const MoviePage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
+  const [trailerKey, setTrailerKey] = useState(null);
 
   //State UP
 
@@ -30,6 +31,20 @@ const MoviePage = () => {
     )
       .then((res) => res.json())
       .then((res) => setRecommendations(res.results) || [])
+      .catch((err) => console.error(err));
+
+    fetch(
+      `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+      options
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        const trailer = res.results.find(
+          (video) => video.site === "YouTube" && video.type === "Trailer"
+        );
+        setTrailerKey(trailer.key || null);
+      })
+
       .catch((err) => console.error(err));
   }, [id]);
 
@@ -76,9 +91,14 @@ const MoviePage = () => {
               ))}
             </div>
             <p className="max-w-2xl text-gray-200">{movie.overview}</p>
-            <button className="flex items-center justify-center bg-[#e50914] hover:bg-red-400 text-white px-4 py-3 rounded-full cursor-pointer tesxt-sm md:text-base mt-2 md:mt-4">
-              <Play className="mr-2 w-4 h-5 md:w-5 md:h-5" /> Watch Now
-            </button>
+            <Link
+              to={`https://www.youtube.com/watch?v=${trailerKey}`}
+              target="_blank"
+            >
+              <button className="flex items-center justify-center bg-[#e50914] hover:bg-red-400 text-white px-4 py-3 rounded-full cursor-pointer tesxt-sm md:text-base mt-2 md:mt-4">
+                <Play className="mr-2 w-4 h-5 md:w-5 md:h-5" /> Watch Now
+              </button>
+            </Link>
           </div>
         </div>
       </div>
