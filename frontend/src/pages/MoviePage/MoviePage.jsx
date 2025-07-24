@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { Play } from "lucide-react";
 
 const MoviePage = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
+
+  //State UP
+
   const options = {
     method: "GET",
     headers: {
@@ -18,6 +22,14 @@ const MoviePage = () => {
     fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
       .then((res) => res.json())
       .then((res) => setMovie(res))
+      .catch((err) => console.error(err));
+
+    fetch(
+      `https://api.themoviedb.org/3/movie/${id}/recommendations?language=en-US&page=1`,
+      options
+    )
+      .then((res) => res.json())
+      .then((res) => setRecommendations(res.results) || [])
       .catch((err) => console.error(err));
   }, [id]);
 
@@ -147,6 +159,33 @@ const MoviePage = () => {
           </div>
         </div>
       </div>
+      {recommendations.length > 0 && (
+        <div className="p-8">
+          <h2 className="text-2xl font-semibold mb-4">You may also like...</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {recommendations.slice(0, 10).map((rec) => (
+              <div
+                key={rec.id}
+                className="bg-[#232323] rounded-lg overflow-hidden hover:scale-105 transition shadow-lg"
+              >
+                <Link to={`/movie/${rec.id}`}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w300/${rec.poster_path}`}
+                    alt="Poster of the movie"
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-2">
+                    <h3 className="text-sm font-semibold">{rec.title}</h3>
+                    <span className="text-xs text-gray-400">
+                      {rec.release_date?.slice(0, 4)}
+                    </span>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
