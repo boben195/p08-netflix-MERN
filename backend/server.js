@@ -61,12 +61,15 @@ app.post("/api/signup", async (req, res) => {
 //************************************************ */
 app.post("/api/login", async (req, res) => {
   const { name, password } = req.body;
+  console.log('Login request:', req.body);
+
   try {
     if (!name || !password) {
       throw new Error('All fields are required');
     }
 
-    const user = await User.find
+    const user = await User.findOne({ name });
+    console.log('Found user:', user);
     if(!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     } 
