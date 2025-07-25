@@ -4,12 +4,14 @@ import dotenv from 'dotenv';
 import User from './models/userModal.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
 
 dotenv.config({ debug: true });
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 const PORT = process.env.PORT || 5000;
 app.get('/', (req, res) => {
@@ -109,7 +111,7 @@ app.get("/api/fetch-user", async (req, res) => {
     if (!decoded || !decoded.id) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
-    
+
     const user = await User.findById(decoded.id).select('-password');
     
     if (!user) {
