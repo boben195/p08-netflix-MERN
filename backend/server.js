@@ -57,7 +57,45 @@ app.post("/api/signup", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
- 
+
+//************************************************ */
+app.post("/api/login", async (req, res) => {
+  const { name, password } = req.body;
+  try {
+    if (!name || !password) {
+      throw new Error('All fields are required');
+    }
+
+    const user = await User.find
+    if(!user) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    } 
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    //JWT
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '7d',
+    });
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+     return res.status(200).json({ message: 'Login successful', user: { name: user.name, email: user.email } });
+
+
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+})
+//************************************************ */
+
+
 app.listen(PORT, () => {
   connectDB();  
   console.log(`Server is running on http://localhost:${PORT}`);
