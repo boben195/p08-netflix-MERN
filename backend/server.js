@@ -109,6 +109,7 @@ app.get("/api/fetch-user", async (req, res) => {
     if (!decoded || !decoded.id) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
+    
     const user = await User.findById(decoded.id).select('-password');
     
     if (!user) {
