@@ -23,9 +23,10 @@ app.get('/', (req, res) => {
 });
 
 app.post("/api/signup", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { username, email, password } = req.body;
+  console.log("Signup request body:", req.body);
   try {
-    if (!name || !email || !password) {
+    if (!username || !email || !password) {
       throw new Error("All fields are required");
     }
 
@@ -34,13 +35,13 @@ app.post("/api/signup", async (req, res) => {
       return res.status(400).json({ message: "Email already exists" });
     }
 
-    const usernameExists = await User.findOne({ name });
+    const usernameExists = await User.findOne({ username });
     if (usernameExists) {
       return res.status(400).json({ message: "Username already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ name, email, password: hashedPassword });
+    const user = new User({ username, email, password: hashedPassword });
 
     await user.save();
 
@@ -66,15 +67,15 @@ app.post("/api/signup", async (req, res) => {
 
 //************************************************ */
 app.post("/api/login", async (req, res) => {
-  const { name, password } = req.body;
+  const { username, password } = req.body;
   console.log("Login request:", req.body);
 
   try {
-    if (!name || !password) {
+    if (!username || !password) {
       throw new Error("All fields are required");
     }
 
-    const user = await User.findOne({ name });
+    const user = await User.findOne({ username });
     console.log("Found user:", user);
     if(!user) {
       return res.status(400).json({ message: "Invalid credentials" });
@@ -95,7 +96,7 @@ app.post("/api/login", async (req, res) => {
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-     return res.status(200).json({ message: "Login successful", user: { name: user.name, email: user.email } });
+     return res.status(200).json({ message: "Login successful", user: { username: user.username, email: user.email } });
 
 
   } catch (error) {
