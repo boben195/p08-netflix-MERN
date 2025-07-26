@@ -5,6 +5,7 @@ import User from './models/userModal.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 dotenv.config({ debug: true });
 
@@ -12,6 +13,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true,}))
 
 const PORT = process.env.PORT || 5000;
 app.get('/', (req, res) => {
