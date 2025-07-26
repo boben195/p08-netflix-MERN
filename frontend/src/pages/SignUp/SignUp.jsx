@@ -13,7 +13,7 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await signup(name, email, password);
+      await signup(username, email, password);
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -52,8 +52,10 @@ const SignUp = () => {
             className="w-full h-[50px] bg-[#333] text-white roundded px-5 text-base"
             placeholder="Enter Your Password"
           />
+          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
           <button
             type="submit"
+            disabled={loading}
             className="w-full bg-[#e50914] text-white py-2 rounded text-base hover:opacity-90 cursor-pointer"
           >
             Sign Up
