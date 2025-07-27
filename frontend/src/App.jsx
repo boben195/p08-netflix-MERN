@@ -5,10 +5,12 @@ import HomePage from "./pages/HomePage/HomePage";
 import MoviePage from "./pages/Moviepage/MoviePage";
 import SignIn from "./pages/SignIn/SignIn";
 import SignUp from "./pages/SignUp/SignUp";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
     <div>
+      <Toaster />
       <Navbar />
       <Routes>
         <Route path={"/"} element={<HomePage />} />
