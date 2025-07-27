@@ -1,5 +1,5 @@
 import React from "react";
-import { Search } from "lucide-react";
+import { HelpCircle, LogOut, Search, Settings } from "lucide-react";
 import Logo from "../../assets/logo.png";
 import { Link } from "react-router";
 import { useAuthStore } from "../../store/authStore";
@@ -61,7 +61,22 @@ const Navbar = () => {
             />
             {showMenu && (
               <div>
-                <p>Settings</p>
+                <div>
+                  <span>{user.name}</span>
+                  <span>{user.email}</span>
+                </div>
+                <button>
+                  <HelpCircle />
+                  Help Center
+                </button>
+                <button>
+                  <Settings />
+                  Settings
+                </button>
+                <button>
+                  <LogOut />
+                  Log Out
+                </button>
               </div>
             )}
           </div>
