@@ -5,7 +5,7 @@ import { useAuthStore } from "../../store/authStore";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [name, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signup, loading, error } = useAuthStore();
@@ -33,7 +33,7 @@ const SignUp = () => {
         <form onSubmit={handleSignUp} className="flex flex-col space-y-4">
           <input
             type="text"
-            value={username}
+            value={name}
             onChange={(e) => setUsername(e.target.value)}
             className="w-full h-[50px] bg-[#333] text-white roundded px-5 text-base"
             placeholder="Entr your Username"
