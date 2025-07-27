@@ -3,9 +3,17 @@ import { Search } from "lucide-react";
 import Logo from "../../assets/logo.png";
 import { Link } from "react-router";
 import { useAuthStore } from "../../store/authStore";
+import { useState } from "react";
 
 const Navbar = () => {
   const { user } = useAuthStore();
+  const [showMenu, setShowMenu] = useState(false);
+
+  const avatarUrl = user
+    ? `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
+        user.name
+      )}`
+    : "";
   return (
     <nav className="bg-black text-gray-300 flex justify-between items-center p-4 h-20 text-sm md:text-[15px] font-medium text-nowrap">
       <Link to="/">
@@ -44,7 +52,19 @@ const Navbar = () => {
             </button>
           </Link>
         ) : (
-          <div className="text-white">{user.name}</div>
+          <div className="text-white">
+            <img
+              src={avatarUrl}
+              alt="Your avatar"
+              className="w-10 h-10 rounded-full border-2 border-[#e50914] cursor-pointer"
+              onClick={() => setShowMenu(!showMenu)}
+            />
+            {showMenu && (
+              <div>
+                <p>Settings</p>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </nav>
