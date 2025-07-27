@@ -6,8 +6,19 @@ import MoviePage from "./pages/Moviepage/MoviePage";
 import SignIn from "./pages/SignIn/SignIn";
 import SignUp from "./pages/SignUp/SignUp";
 import { Toaster } from "react-hot-toast";
+import { useAuthStore } from "./store/authStore";
+import { useEffect } from "react";
 
 const App = () => {
+  const { fetchUser, fetchingUser } = useAuthStore();
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
+
+  if (fetchingUser) {
+    return <p>Loading...</p>;
+  }
   return (
     <div>
       <Toaster />
