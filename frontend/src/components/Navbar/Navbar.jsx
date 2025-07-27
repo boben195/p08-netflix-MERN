@@ -4,9 +4,10 @@ import Logo from "../../assets/logo.png";
 import { Link } from "react-router";
 import { useAuthStore } from "../../store/authStore";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const Navbar = () => {
-  const { user } = useAuthStore();
+  const { user, logout } = useAuthStore();
   const [showMenu, setShowMenu] = useState(false);
 
   const avatarUrl = user
@@ -14,6 +15,13 @@ const Navbar = () => {
         user.name
       )}`
     : "";
+
+  const handleLogout = async () => {
+    const { message } = await logout();
+    toast.success(message);
+    setShowMenu(false);
+  };
+
   return (
     <nav className="bg-black text-gray-300 flex justify-between items-center p-4 h-20 text-sm md:text-[15px] font-medium text-nowrap">
       <Link to="/">
@@ -75,7 +83,10 @@ const Navbar = () => {
                   <Settings className="w-5 h-5" />
                   Settings
                 </button>
-                <button className="flex items-center px-4 py-3 rounded-lg text-white bg-[#181818] hover:bg-[#1d1c1c] gap-3 cursoir-pointer">
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center px-4 py-3 rounded-lg text-white bg-[#181818] hover:bg-[#1d1c1c] gap-3 cursoir-pointer"
+                >
                   <LogOut className="w-5 h-5" />
                   Log Out
                 </button>
