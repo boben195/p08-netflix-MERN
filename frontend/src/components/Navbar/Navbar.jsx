@@ -60,21 +60,23 @@ const Navbar = () => {
               onClick={() => setShowMenu(!showMenu)}
             />
             {showMenu && (
-              <div>
-                <div>
-                  <span>{user.name}</span>
-                  <span>{user.email}</span>
+              <div className="absolute right-0 mt-2 bg-[#232323] bg-opacity-95 rounded-lg z-50 shadow-lg py-4 px-3 flex flex-col gap-2 border border-[#333333]">
+                <div className="flex flex-col items-center mb-2">
+                  <span className="text-white font-semibold text-base">
+                    {user.name}
+                  </span>
+                  <span className="text-xs text-gray-400">{user.email}</span>
                 </div>
-                <button>
-                  <HelpCircle />
+                <button className="flex items-center px-4 py-3 rounded-lg text-white bg-[#181818] hover:bg-[#1d1c1c] gap-3 cursoir-pointer">
+                  <HelpCircle className="w-5 h-5" />
                   Help Center
                 </button>
-                <button>
-                  <Settings />
+                <button className="flex items-center px-4 py-3 rounded-lg text-white bg-[#181818] hover:bg-[#1d1c1c] gap-3 cursoir-pointer">
+                  <Settings className="w-5 h-5" />
                   Settings
                 </button>
-                <button>
-                  <LogOut />
+                <button className="flex items-center px-4 py-3 rounded-lg text-white bg-[#181818] hover:bg-[#1d1c1c] gap-3 cursoir-pointer">
+                  <LogOut className="w-5 h-5" />
                   Log Out
                 </button>
               </div>
