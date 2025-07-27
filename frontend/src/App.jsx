@@ -8,6 +8,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
+import AIRecommendations from "./pages/AIRecommendations/AIRecommendations";
 
 const App = () => {
   const { fetchUser, fetchingUser } = useAuthStore();
@@ -28,6 +29,7 @@ const App = () => {
         <Route path={"/movie/:id"} element={<MoviePage />} />
         <Route path={"/signin"} element={<SignIn />} />
         <Route path={"/signup"} element={<SignUp />} />
+        <Route path={"/ai-recommendations"} element={<AIRecommendations />} />
       </Routes>
     </div>
   );

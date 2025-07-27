@@ -49,9 +49,11 @@ const Navbar = () => {
           />
           <Search className="absolute top-2.5 right-73 w-5 h-5" />
         </div>
-        <button className="bg-[#e50914] px-5 py-2 text-white cursor-pointer">
-          Get AI Movie Picks
-        </button>
+        <Link to={user ? "ai-recommendations" : "/signin"}>
+          <button className="bg-[#e50914] px-5 py-2 text-white cursor-pointer">
+            Get AI Movie Picks
+          </button>
+        </Link>
 
         {!user ? (
           <Link to={"/signin"}>
