@@ -193,11 +193,13 @@ Recommend 10 ${inputs.mood.toLowerCase()} ${
             </button>
             <button
               type="button"
-              onClick={handleNext}
-              disabled={!inputs[steps[step].name]}
+              onClick={
+                step === steps.length - 1 ? generateRecommendations : handleNext
+              }
+              disabled={!inputs[steps[step].name] || isLoading}
               className="px-6 py-2 rounded-lg font-semibold transition border-2 border-[#e50914] text-white bg-[#e50914] hover:bg-[#b0060f] ml-2"
             >
-              {step < steps.length - 1 ? "Next" : "Finish"}
+              {step === steps.length - 1 ? "Finish" : "Next"}
             </button>
           </div>
         </div>
