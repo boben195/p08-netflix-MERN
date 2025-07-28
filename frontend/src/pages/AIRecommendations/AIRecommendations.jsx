@@ -101,8 +101,12 @@ const AIRecommendations = () => {
               {steps[step].options.map((opt) => (
                 <button
                   key={opt}
-                  className="w-full py-3 rounded-xl border-2 transition font-semibold text-base flex items-center justify-center gap-2
-                   shadow-lg bg-[#e50914] border-[#e50914] text-white "
+                  className={`w-full py-3 rounded-xl border-2 transition font-semibold
+                   text-base flex items-center justify-center gap-2 ${
+                     inputs[steps[step].name == opt]
+                       ? "bg-[#e50914] border-[#e50914] text-white shadow-lg"
+                       : "bg-#[232323] border-[#444] text-white hover:bg-[#e50914]/80 hover:border-[#e50914]"
+                   }`}
                 >
                   {opt}
                 </button>
