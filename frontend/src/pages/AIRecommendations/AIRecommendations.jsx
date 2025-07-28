@@ -127,6 +127,7 @@ const AIRecommendations = () => {
           <div className="flex justify-between items-center mt-6">
             <button
               type="button"
+              onClick={handleBack}
               className="px-6 py-2 rounded-lg font-semibold transition border-2 border-[#444] text-white bg-[#181818] hover:bg-[#232323]"
             >
               Back
