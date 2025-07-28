@@ -1,5 +1,8 @@
+import { getAIRecommendations } from "../../lib/AIModel";
+
 import React from "react";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const steps = [
   {
@@ -52,6 +55,8 @@ const initialState = steps.reduce((acc, step) => {
 const AIRecommendations = () => {
   const [inputs, setInputs] = useState(initialState);
   const [step, setStep] = useState(0);
+  const [recommendation, setRecommendation] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOption = (value) => {
     setInputs({ ...inputs, [steps[step].name]: value });
@@ -68,6 +73,59 @@ const AIRecommendations = () => {
   const handleBack = () => {
     if (step > 0) {
       setStep(step - 1);
+    }
+  };
+
+  const generateRecommendations = async () => {
+    if (!inputs) {
+      toast("Please enter your inputes");
+    }
+    setIsLoading(true);
+    const userPrompt = `Given the following user inputs:
+
+- Decade: ${inputs.decade}
+- Genre: ${inputs.genre}
+- Language: ${inputs.language}
+- Length: ${inputs.length}
+- Mood: ${inputs.mood}
+
+Recommend 10 ${inputs.mood.toLowerCase()} ${
+      inputs.language
+    }-language ${inputs.genre.toLowerCase()} movies released in the ${
+      inputs.decade
+    } with a runtime between ${
+      inputs.length
+    }. Return the list as plain JSON array of movie titles only, No extra text, no explanations, no code blocks, no markdown, just the JSON array.
+    example:
+[
+  "Movie Title 1",
+  "Movie Title 2",
+  "Movie Title 3",
+  "Movie Title 4",
+  "Movie Title 5",
+  "Movie Title 6",
+  "Movie Title 7",
+  "Movie Title 8",
+  "Movie Title 9",
+  "Movie Title 10"
+]`;
+    const result = await getAIRecommendations(userPrompt);
+    setIsLoading(false);
+
+    if (result) {
+      const cleanedResult = result
+        .replace(/```json\n/i, "")
+        .replace(/\n```/i, "");
+      try {
+        const recomandetionsArray = JSON.parse(cleanedResult);
+        setRecommendation(recomandetionsArray);
+        toast.success("Recommendations generated successfully!");
+        console.log("Recommendations:", recomandetionsArray);
+      } catch (error) {
+        console.error("Error parsing recommendations:", error);
+      }
+    } else {
+      toast.error("Failed to parse recommendations. Please try again.");
     }
   };
   return (
@@ -128,6 +186,7 @@ const AIRecommendations = () => {
             <button
               type="button"
               onClick={handleBack}
+              disabled={step === 0}
               className="px-6 py-2 rounded-lg font-semibold transition border-2 border-[#444] text-white bg-[#181818] hover:bg-[#232323]"
             >
               Back
@@ -135,6 +194,7 @@ const AIRecommendations = () => {
             <button
               type="button"
               onClick={handleNext}
+              disabled={!inputs[steps[step].name]}
               className="px-6 py-2 rounded-lg font-semibold transition border-2 border-[#e50914] text-white bg-[#e50914] hover:bg-[#b0060f] ml-2"
             >
               {step < steps.length - 1 ? "Next" : "Finish"}
