@@ -64,8 +64,16 @@ const RecommendedMovies = ({ movieTitles }) => {
               className="w-full h-48 object-cover"
             />
           ) : (
-            <></>
+            <>NO IMAGE</>
           )}
+          <div className="p-2">
+            <h3 className="text-sn font-semibold text-white truncate">
+              {movie.title}
+            </h3>
+            <p className="text-sm text-gray-400">
+              {movie.release_date ? movie.release_date.slice(0, 4) : "N/A"}
+            </p>
+          </div>
         </Link>
       ))}
     </div>
