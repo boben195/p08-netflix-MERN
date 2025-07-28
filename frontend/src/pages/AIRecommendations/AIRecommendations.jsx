@@ -181,15 +181,6 @@ Recommend 10 ${inputs.mood.toLowerCase()} ${
                     {opt}
                   </button>
                 ))}
-                {/* <button className="w-full py-3 rounded-xl border-2 border-[#333333] bg-[#232323] text-white shadow-lg">
-                Option 2
-              </button>
-              <button className="w-full py-3 rounded-xl border-2">
-                Option 3
-              </button>
-              <button className="w-full py-3 rounded-xl border-2">
-                Option 4
-              </button> */}
               </div>
             </div>
 
