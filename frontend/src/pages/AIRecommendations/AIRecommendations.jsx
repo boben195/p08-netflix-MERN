@@ -133,9 +133,10 @@ const AIRecommendations = () => {
             </button>
             <button
               type="button"
+              onClick={handleNext}
               className="px-6 py-2 rounded-lg font-semibold transition border-2 border-[#e50914] text-white bg-[#e50914] hover:bg-[#b0060f] ml-2"
             >
-              Next
+              {step < steps.length - 1 ? "Next" : "Finish"}
             </button>
           </div>
         </div>
