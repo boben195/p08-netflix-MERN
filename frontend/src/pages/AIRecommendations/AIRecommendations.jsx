@@ -3,6 +3,7 @@ import { getAIRecommendations } from "../../lib/AIModel";
 import React from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import RecommendedMovies from "../../components/RecomendedMovies/RecommendedMovies";
 
 const steps = [
   {
@@ -135,6 +136,7 @@ Recommend 10 ${inputs.mood.toLowerCase()} ${
         className="absolute inset-0 w-full h-full object-cover opacity-20 blur-[2px]"
         alt="banner for background"
       />
+      <RecommendedMovies movieTitles={recommendation} />
       <div className="relative w-full max-w-md mx-auto rounded-2xl bg-[#232323]/90 shadow-2xl border border-[#333333] px-8 py-10 mt-4 flex flex-col items-center min-h-[480px]">
         <h2 className="text-3xl font-extrabold mb-8 text-center text-white tracking-tight drop-shadow-lg">
           AI Movie Recommendations
