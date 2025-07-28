@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 
 const steps = [
   {
@@ -43,7 +44,32 @@ const steps = [
   },
 ];
 
+const initialState = steps.reduce((acc, step) => {
+  acc[step.name] = "";
+  return acc;
+}, {});
+
 const AIRecommendations = () => {
+  const [inputs, setInputs] = useState(initialState);
+  const [step, setStep] = useState(0);
+
+  const handleOption = (value) => {
+    setInputs({ ...inputs, [steps[step].name]: value });
+  };
+
+  const handleNext = () => {
+    if (step < steps.length - 1) {
+      setStep(step + 1);
+    } else {
+      console.log(inputs);
+    }
+  };
+
+  const handleBack = () => {
+    if (step > 0) {
+      setStep(step - 1);
+    }
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#181818] via-[#232323] to-[#181818] relative overflow-hidden">
       <img
@@ -59,21 +85,29 @@ const AIRecommendations = () => {
           <div className="flex-1 h-2 bg-[#232323] rounded-full overflow-hidden">
             <div
               className="h-full bg-[#e50914] transition-all duration-300"
-              style={{ width: "50%" }}
+              style={{ width: `${((step + 1) / steps.length) * 100}%` }}
             ></div>
           </div>
-          <span className="ml-4 text-white text-sm font-semibold">2/5</span>
+          <span className="ml-4 text-white text-sm font-semibold">
+            {step + 1}/{steps.length}
+          </span>
         </div>
         <div className="w-full flex flex-col flex-1">
           <div className="mb-6 flex-1">
             <h3 className="text-white text-lg font-semibold mb-6 text-center">
-              What is your preferred genre?
+              {steps[step].label}
             </h3>
             <div className="grid grid-cols-1 gap-3">
-              <button className="w-full py-3 rounded-xl border-2 transition font-semibold text-base flex items-center justify-center gap-2 shadow-lg bg-[#e50914] border-[#e50914] text-white ">
-                Option 1
-              </button>
-              <button className="w-full py-3 rounded-xl border-2 border-[#333333] bg-[#232323] text-white shadow-lg">
+              {steps[step].options.map((opt) => (
+                <button
+                  key={opt}
+                  className="w-full py-3 rounded-xl border-2 transition font-semibold text-base flex items-center justify-center gap-2
+                   shadow-lg bg-[#e50914] border-[#e50914] text-white "
+                >
+                  {opt}
+                </button>
+              ))}
+              {/* <button className="w-full py-3 rounded-xl border-2 border-[#333333] bg-[#232323] text-white shadow-lg">
                 Option 2
               </button>
               <button className="w-full py-3 rounded-xl border-2">
@@ -81,7 +115,7 @@ const AIRecommendations = () => {
               </button>
               <button className="w-full py-3 rounded-xl border-2">
                 Option 4
-              </button>
+              </button> */}
             </div>
           </div>
 
