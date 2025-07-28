@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router";
 
 const RecommendedMovies = ({ movieTitles }) => {
   //   const options = { method: "GET", headers: { accept: "application/json" } };
@@ -49,7 +50,26 @@ const RecommendedMovies = ({ movieTitles }) => {
   }
   console.log(movies);
 
-  return <div>RecommendedMovies</div>;
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+      {movies.map((movie) => (
+        <Link
+          to={`/movie/${movie.id}`}
+          key={movie.id}
+          className="bg-[232323] rounded-lg overflow-hidden"
+        >
+          {movie.poster_path ? (
+            <img
+              src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+              className="w-full h-48 object-cover"
+            />
+          ) : (
+            <></>
+          )}
+        </Link>
+      ))}
+    </div>
+  );
 };
 
 export default RecommendedMovies;
